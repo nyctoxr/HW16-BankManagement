@@ -13,13 +13,13 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     private final BaseRepository<T, Long> repository;
     private final Class<T> entityClass;
 
-    // کانستراکتور فقط کلاس انتیتی رو می‌گیره
+
     public BaseServiceImpl(Class<T> entityClass) {
         this.repository = new BaseRepositoryImpl<>();
         this.entityClass = entityClass;
     }
 
-    // متد خصوصی برای گرفتن SessionFactory از SessionFactoryInstance
+
     private SessionFactory getSessionFactory() {
         return SessionFactoryInstance.getSessionFactory();
     }

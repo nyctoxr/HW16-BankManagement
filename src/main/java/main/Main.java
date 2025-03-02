@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         CustomerServiceImpl customerService = new CustomerServiceImpl();
 
-        // ایجاد یه مشتری
+
         Customer customer = new Customer();
         customer.setFirstname("Sara");
         customer.setLastname("Ahmadi");

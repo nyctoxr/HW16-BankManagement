@@ -16,12 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Card extends BaseEntity {
-    String cardNumber; // مثلاً 12 یا 16 رقمی
+    String cardNumber;
     String cvv2;
-    String pin; // رمز دوم
+    String pin;
     LocalDate expiryDate;
     boolean isBlocked = false;
-    int failedAttempts = 0; // برای مسدود شدن بعد از 3 بار اشتباه
+    int failedAttempts = 0;
 
     @OneToOne
     @JoinColumn(name = "account_id")

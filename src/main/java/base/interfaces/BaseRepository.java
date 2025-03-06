@@ -1,6 +1,7 @@
-package base;
+package base.interfaces;
 
 
+import base.BaseEntity;
 import org.hibernate.Session;
 import java.util.List;
 import java.util.Optional;

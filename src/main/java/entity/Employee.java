@@ -13,10 +13,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Employee extends User {
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     Role role;
 
     @ManyToOne
-    @JoinColumn(name = "branch_id")
+    @JoinColumn(name = "branch_id", nullable = false)
     BankBranch branch;
 
     @ManyToOne

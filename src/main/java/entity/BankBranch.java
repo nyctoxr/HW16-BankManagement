@@ -15,12 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BankBranch extends BaseEntity {
+    @Column(nullable = false)
     String name;
 
+    @Column(nullable = false)
     String address;
 
     @OneToOne
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "manager_id", nullable = false)
     Employee manager;
 
     @OneToMany(mappedBy = "branch")

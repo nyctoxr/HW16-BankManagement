@@ -1,6 +1,9 @@
-package base;
+package base.baseImplements;
 
 
+import base.BaseEntity;
+import base.interfaces.BaseRepository;
+import base.interfaces.BaseService;
 import config.SessionFactoryInstance;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,6 +40,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     public void update(T entity) {
         try (Session session = getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
+            T excitingEntity = repository.findById(session, entityClass,entity.getId()).orElse(null);
+            if (excitingEntity == null) {
+                throw new IllegalArgumentException("not found");
+            }
             repository.update(session, entity);
             tx.commit();
         }
@@ -46,6 +53,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     public void deleteById(Long id) {
         try (Session session = getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
+            T excitingEntity = repository.findById(session, entityClass, id).orElse(null);
+            if (excitingEntity == null) {
+                throw new IllegalArgumentException("not found");
+            }
             repository.deleteById(session, entityClass, id);
             tx.commit();
         }
@@ -54,6 +65,10 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     @Override
     public Optional<T> findById(Long id) {
         try (Session session = getSessionFactory().openSession()) {
+            T excitingEntity = repository.findById(session, entityClass, id).orElse(null);
+            if (excitingEntity == null) {
+                throw new IllegalArgumentException("not found");
+            }
             return repository.findById(session, entityClass, id);
         }
     }

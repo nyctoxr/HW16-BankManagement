@@ -1,6 +1,6 @@
 package repository.repoInterface;
 
-import base.BaseRepository;
+import base.interfaces.BaseRepository;
 import entity.Card;
 import org.hibernate.Session;
 

@@ -1,6 +1,6 @@
 package repository.repoImplements;
 
-import base.BaseRepositoryImpl;
+import base.baseImplements.BaseRepositoryImpl;
 import entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

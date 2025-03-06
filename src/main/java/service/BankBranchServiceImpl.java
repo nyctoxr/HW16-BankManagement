@@ -1,4 +1,10 @@
 package service;
 
-public class BankBranchServiceImpl {
+import base.baseImplements.BaseServiceImpl;
+import entity.BankBranch;
+
+public class BankBranchServiceImpl extends BaseServiceImpl<BankBranch> {
+    public BankBranchServiceImpl() {
+        super(BankBranch.class);
+    }
 }

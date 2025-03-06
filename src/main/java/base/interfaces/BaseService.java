@@ -1,5 +1,7 @@
-package base;
+package base.interfaces;
 
+
+import base.BaseEntity;
 
 import java.util.List;
 import java.util.Optional;

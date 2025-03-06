@@ -1,9 +1,8 @@
 package service;
 
+import base.baseImplements.BaseServiceImpl;
 import config.SessionFactoryInstance;
-import entity.Customer;
 import entity.Employee;
-
 import exceptions.EmployeeNotFoundException;
 import exceptions.PasswordIsWrongException;
 import org.hibernate.HibernateException;
@@ -12,14 +11,19 @@ import org.hibernate.Transaction;
 import repository.repoImplements.EmployeeRepoImpl;
 import repository.repoInterface.EmployeeRepository;
 
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl extends BaseServiceImpl<Employee> {
 
-    public static Employee loggedInEmployee= new Employee();
+    public static Employee loggedInEmployee;
 
     private final EmployeeRepository employeeRepository = new EmployeeRepoImpl();
 
+    public EmployeeServiceImpl() {
+        super(Employee.class);
+    }
 
-    public void loginEmployee(String nationalID, String password) throws EmployeeNotFoundException, PasswordIsWrongException {
+
+    public void loginEmployee(String nationalID, String password)
+            throws EmployeeNotFoundException, PasswordIsWrongException {
         Transaction tx = null;
         try (Session session = SessionFactoryInstance.
                 getSessionFactory().openSession()) {

@@ -1,6 +1,6 @@
 package repository.repoImplements;
 
-import base.BaseRepositoryImpl;
+import base.baseImplements.BaseRepositoryImpl;
 import entity.Transaction;
 import repository.repoInterface.TransactionRepository;
 

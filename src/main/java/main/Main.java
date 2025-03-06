@@ -1,21 +1,15 @@
 package main;
 
-import entity.Customer;
-import service.CustomerServiceImpl;
-
-
-import java.util.Optional;
+import service.*;
 
 public class Main {
     public static void main(String[] args) {
         CustomerServiceImpl customerService = new CustomerServiceImpl();
+        CardServiceImpl cardService = new CardServiceImpl();
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        BankBranchServiceImpl bankBranchService = new BankBranchServiceImpl();
 
-
-        Customer customer = new Customer();
-        customer.setFirstname("Sara");
-        customer.setLastname("Ahmadi");
-        customer.setNationalID("9876543210");
-        customerService.create(customer);
 
     }
 }

@@ -29,47 +29,37 @@ public class CustomerServiceImpl extends BaseServiceImpl<Customer> {
     public static Customer loggedInCustomer;
 
 
-    public void register(String firstname, String lastname,
-                         String nationalID, String phone, String password,
-                         LocalDate birthdate, BankBranch branch){
-        Transaction tx =null;
-        try(Session session = SessionFactoryInstance.getSessionFactory().openSession()) {
-            try {
+    public void register(String firstname, String lastname, String nationalID, String phone, String password,
+                         LocalDate birthdate, BankBranch branch) {
+        Transaction tx = null;
+        try (Session session = SessionFactoryInstance.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
 
-                Customer customer = new Customer();
-                customer.setFirstname(firstname);
-                customer.setLastname(lastname);
-                customer.setNationalID(nationalID);
-                customer.setPhone(phone);
-                customer.setPassword(password);
-                customer.setBirthdate(birthdate);
+            Customer customer = new Customer();
+            customer.setFirstname(firstname);
+            customer.setLastname(lastname);
+            customer.setNationalID(nationalID);
+            customer.setPhone(phone);
+            customer.setPassword(password);
+            customer.setBirthdate(birthdate);
 
-                if (!ValidatorUtil.validate(customer)) {
-                    throw new IllegalArgumentException("Customer validation failed");
-                }
-                customerRepository.persist(session, customer); // ذخیره توی همون Session
-
-
-                Account account = accountService.createAccountInSession(session, customer, branch, 0.0);
-
-
-                cardService.createCardInSession(session, account, "1234");
-
-                tx.commit();
-                System.out.println("Customer registered successfully: " + firstname + " " + lastname);
-            } catch (Exception e) {
-                if (tx != null) {
-                    tx.rollback();
-                }
-                throw new RuntimeException("Unexpected error during login: "+e.getMessage());
+            if (!ValidatorUtil.validate(customer)) {
+                throw new IllegalArgumentException("Customer validation failed");
             }
 
+            customerRepository.persist(session, customer);
+            Account account = accountService.createAccountInSession(session, customer, branch, 0.0);
+            cardService.createCardInSession(session, account, "1234");
 
+            tx.commit();
+            System.out.println("Customer registered successfully: " + firstname + " " + lastname);
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Error during registration: " + e.getMessage(), e);
         }
-
-
     }
-
 
 
 

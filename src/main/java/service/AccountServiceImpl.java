@@ -44,7 +44,10 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> {
         try (Session session = SessionFactoryInstance.getSessionFactory().openSession()) {
             try {
                 tx = session.beginTransaction();
-                return createAccountInSession(session, customer, branch, initialBalance);
+                Account account= createAccountInSession(session, customer, branch, initialBalance);
+                tx.commit();
+                return account;
+
             }catch (Exception e) {
                 if (tx != null) {
                     tx.rollback();

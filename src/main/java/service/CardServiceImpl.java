@@ -60,10 +60,17 @@ public class CardServiceImpl extends BaseServiceImpl<Card>{
     public Card createCard(Account account, String pin) throws IllegalArgumentException {
         org.hibernate.Transaction tx =null;
         try(Session session = SessionFactoryInstance.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            Card card = createCardInSession(session, account, pin);
-            tx.commit();
-            return card;
+            try {
+                tx = session.beginTransaction();
+                Card card = createCardInSession(session, account, pin);
+                tx.commit();
+                return card;
+            } catch (Exception e) {
+                if (tx != null) {
+                    tx.rollback();
+                }
+                throw new RuntimeException("unexpected exception", e);
+            }
         }
     }
 
